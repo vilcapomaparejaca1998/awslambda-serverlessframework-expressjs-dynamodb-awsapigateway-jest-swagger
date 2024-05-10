@@ -1,0 +1,56 @@
+service: aws-starwars-api
+frameworkVersion: "3"
+
+custom:
+  tableName: "people-table-${sls:stage}"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - "Fn::GetAtt": [PeopleTable, Arn]
+  environment:
+    PEOPLE_TABLE: ${self:custom.tableName}
+
+functions:
+  api:
+    handler: dist/index.handler
+    events:
+      - httpApi:
+          path: /people/{id}
+          method: get
+      - httpApi:
+          path: /people 
+          method: post
+
+  listAllPeople:
+    handler: dist/peopleAllHandler.listAllPeopleHandler
+    events:
+      - httpApi:
+          path: /all
+          method: get
+
+resources:
+  Resources:
+    PeopleTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}

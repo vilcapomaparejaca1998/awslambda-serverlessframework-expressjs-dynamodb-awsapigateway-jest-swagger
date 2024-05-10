@@ -1,0 +1,39 @@
+{
+  "name": "aws-starwars-api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "deploy": "serverless deploy",
+    "local": "serverless offline start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.572.0",
+    "@aws-sdk/lib-dynamodb": "^3.572.0",
+    "@nestjs/axios": "^3.0.2",
+    "axios": "^1.6.8",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "serverless-http": "^3.1.1",
+    "serverless-offline": "^13.5.0",
+    "swagger-ui-express": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^10.3.8",
+    "@types/axios": "^0.14.0",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.11",
+    "@types/supertest": "^6.0.2",
+    "@types/uuid": "^9.0.8",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  }
+}
